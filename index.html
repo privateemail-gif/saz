@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sunrise — Join the Community</title>
+<meta http-equiv="refresh" content="5;url=https://wa.me/447876865287?text=I%20am%20sunrise%20super%20fan">
+<style>
+  :root {
+    --night: #14121f;
+    --dusk: #2b2140;
+    --horizon: #ff6a45;
+    --amber: #ffb44d;
+    --paper: #f6ede1;
+    --paper-dim: #cfc3b3;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html, body {
+    height: 100%;
+  }
+
+  body {
+    font-family: 'Iowan Old Style', 'Palatino Linotype', Georgia, serif;
+    background: var(--night);
+    color: var(--paper);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .sky {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 900px 500px at 50% 78%, var(--horizon) 0%, rgba(255,106,69,0.35) 30%, transparent 65%),
+      linear-gradient(180deg, var(--night) 0%, var(--dusk) 55%, #45264a 78%, var(--horizon) 100%);
+    z-index: 0;
+  }
+
+  .sun {
+    position: absolute;
+    left: 50%;
+    bottom: 22%;
+    width: 220px;
+    height: 220px;
+    transform: translateX(-50%);
+    border-radius: 50%;
+    background: radial-gradient(circle at 50% 40%, var(--amber) 0%, var(--horizon) 70%, transparent 100%);
+    filter: blur(1px);
+    opacity: 0.85;
+    z-index: 1;
+    animation: rise 6s ease-out forwards;
+  }
+
+  @keyframes rise {
+    from { transform: translateX(-50%) translateY(40px); opacity: 0; }
+    to   { transform: translateX(-50%) translateY(0); opacity: 0.85; }
+  }
+
+  .horizon-line {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 22%;
+    height: 1px;
+    background: rgba(246,237,225,0.25);
+    z-index: 2;
+  }
+
+  main {
+    position: relative;
+    z-index: 3;
+    text-align: center;
+    padding: 2rem;
+    max-width: 620px;
+  }
+
+  .band-name {
+    font-family: 'Didot', 'Bodoni MT', 'Playfair Display', Georgia, serif;
+    font-size: clamp(3.5rem, 12vw, 6.5rem);
+    letter-spacing: 0.02em;
+    line-height: 0.95;
+    color: var(--paper);
+    text-shadow: 0 0 40px rgba(255,180,77,0.35);
+  }
+
+  .tagline {
+    margin-top: 0.9rem;
+    font-size: 1.05rem;
+    font-style: italic;
+    color: var(--paper-dim);
+    letter-spacing: 0.01em;
+  }
+
+  .divider {
+    width: 64px;
+    height: 1px;
+    background: var(--amber);
+    margin: 2rem auto;
+    opacity: 0.7;
+  }
+
+  .redirect-box {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    background: rgba(20, 18, 31, 0.55);
+    border: 1px solid rgba(255,180,77,0.3);
+    border-radius: 10px;
+    padding: 1.5rem 1.75rem;
+    backdrop-filter: blur(6px);
+  }
+
+  .redirect-box p {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: var(--paper);
+  }
+
+  .redirect-box p + p {
+    margin-top: 0.6rem;
+    color: var(--paper-dim);
+    font-size: 0.88rem;
+  }
+
+  .countdown {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 1px solid var(--amber);
+    color: var(--amber);
+    font-weight: 600;
+    font-size: 0.9rem;
+    margin: 0 0.3rem;
+    vertical-align: middle;
+  }
+
+  .fallback {
+    margin-top: 1.1rem;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 0.85rem;
+  }
+
+  .fallback a {
+    color: var(--amber);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(255,180,77,0.4);
+  }
+
+  .fallback a:hover {
+    border-bottom-color: var(--amber);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .sun { animation: none; opacity: 0.85; transform: translateX(-50%); }
+  }
+</style>
+</head>
+<body>
+
+  <div class="sky"></div>
+  <div class="sun"></div>
+  <div class="horizon-line"></div>
+
+  <main>
+    <h1 class="band-name">SUNRISE AVENUE</h1>
+    <p class="tagline">stories from the road, before the lights go up</p>
+
+    <div class="divider"></div>
+
+    <div class="redirect-box">
+      <p>Taking you to WhatsApp in <span class="countdown" id="count">5</span> seconds.</p>
+      <p>You're joining the Sunrise avenue WhatsApp community, where the band shares personal stories straight from the team.</p>
+    </div>
+
+    <p class="fallback">
+      Not redirecting? <a href="https://wa.me/447876865287?text=I%20am%20sunrise%20super%20fan">Tap here to open WhatsApp</a>
+    </p>
+  </main>
+
+  <script>
+    var seconds = 5;
+    var el = document.getElementById('count');
+    var timer = setInterval(function () {
+      seconds -= 1;
+      if (seconds <= 0) {
+        clearInterval(timer);
+        el.textContent = '0';
+        window.location.href = "https://wa.me/447876865287?text=I%20am%20sunrise%20super%20fan";
+        return;
+      }
+      el.textContent = seconds;
+    }, 1000);
+  </script>
+
+</body>
+</html>
