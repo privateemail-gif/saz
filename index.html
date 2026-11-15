@@ -3,8 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sunrise — Join the Community</title>
-<meta http-equiv="refresh" content="5;url=https://wa.me/447876865287?text=I%20am%20sunrise%20super%20fan">
+<title>Sunrise Support — Standing With Children Affected by War</title>
 <style>
   :root {
     --night: #14121f;
@@ -18,7 +17,8 @@
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
   html, body {
-    height: 100%;
+    min-height: 100%;
+    top: 0 !important; /* Prevents Google Translate banner from pushing body down */
   }
 
   body {
@@ -27,14 +27,86 @@
     color: var(--paper);
     min-height: 100vh;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    overflow: hidden;
+    overflow-x: hidden;
     position: relative;
+    padding: 4.5rem 1.25rem 2.5rem;
+  }
+
+  /* Hide default Google Translate top bar cleanly */
+  .goog-te-banner-frame.skiptranslate,
+  .goog-te-gadget-icon,
+  #goog-gt-tt {
+    display: none !important;
+  }
+
+  /* Language bar at top */
+  .lang-bar {
+    position: fixed;
+    top: 14px;
+    right: 16px;
+    z-index: 50;
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    background: rgba(20, 18, 31, 0.78);
+    border: 1px solid rgba(255, 180, 77, 0.35);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    padding: 0.4rem 0.75rem;
+    border-radius: 999px;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 0.82rem;
+    color: var(--paper);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+  }
+
+  .lang-bar label {
+    color: var(--amber);
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+  }
+
+  .lang-select {
+    background: transparent;
+    color: var(--paper);
+    border: none;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 0.82rem;
+    cursor: pointer;
+    outline: none;
+    padding-right: 0.2rem;
+  }
+
+  .lang-select option {
+    background: #1d1830;
+    color: #f6ede1;
+  }
+
+  /* Google Translate fallback dropdown styling if user picks "More Languages..." */
+  #google_translate_element {
+    display: none;
+  }
+
+  #google_translate_element.visible {
+    display: inline-block;
+  }
+
+  .goog-te-combo {
+    background: #1d1830;
+    color: #f6ede1;
+    border: 1px solid rgba(255, 180, 77, 0.35);
+    border-radius: 6px;
+    padding: 0.2rem 0.4rem;
+    font-size: 0.8rem;
   }
 
   .sky {
-    position: absolute;
+    position: fixed;
     inset: 0;
     background:
       radial-gradient(ellipse 900px 500px at 50% 78%, var(--horizon) 0%, rgba(255,106,69,0.35) 30%, transparent 65%),
@@ -43,11 +115,11 @@
   }
 
   .sun {
-    position: absolute;
+    position: fixed;
     left: 50%;
     bottom: 22%;
-    width: 220px;
-    height: 220px;
+    width: 240px;
+    height: 240px;
     transform: translateX(-50%);
     border-radius: 50%;
     background: radial-gradient(circle at 50% 40%, var(--amber) 0%, var(--horizon) 70%, transparent 100%);
@@ -63,7 +135,7 @@
   }
 
   .horizon-line {
-    position: absolute;
+    position: fixed;
     left: 0;
     right: 0;
     bottom: 22%;
@@ -76,129 +148,649 @@
     position: relative;
     z-index: 3;
     text-align: center;
-    padding: 2rem;
-    max-width: 620px;
+    max-width: 610px;
+    width: 100%;
   }
 
-  .band-name {
+  .relief-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--amber);
+    background: rgba(255, 180, 77, 0.12);
+    border: 1px solid rgba(255, 180, 77, 0.3);
+    padding: 0.4rem 0.95rem;
+    border-radius: 999px;
+    margin-bottom: 1rem;
+  }
+
+  .brand-name {
     font-family: 'Didot', 'Bodoni MT', 'Playfair Display', Georgia, serif;
-    font-size: clamp(3.5rem, 12vw, 6.5rem);
-    letter-spacing: 0.02em;
-    line-height: 0.95;
+    font-size: clamp(2.6rem, 9vw, 4.4rem);
+    letter-spacing: 0.03em;
+    line-height: 1.04;
     color: var(--paper);
     text-shadow: 0 0 40px rgba(255,180,77,0.35);
   }
 
   .tagline {
-    margin-top: 0.9rem;
-    font-size: 1.05rem;
+    margin-top: 0.8rem;
+    font-size: 1.12rem;
     font-style: italic;
     color: var(--paper-dim);
-    letter-spacing: 0.01em;
+    line-height: 1.55;
   }
 
   .divider {
     width: 64px;
     height: 1px;
     background: var(--amber);
-    margin: 2rem auto;
+    margin: 1.5rem auto;
     opacity: 0.7;
   }
 
-  .redirect-box {
+  .support-box {
     font-family: 'Helvetica Neue', Arial, sans-serif;
-    background: rgba(20, 18, 31, 0.55);
-    border: 1px solid rgba(255,180,77,0.3);
-    border-radius: 10px;
-    padding: 1.5rem 1.75rem;
-    backdrop-filter: blur(6px);
+    background: rgba(20, 18, 31, 0.72);
+    border: 1px solid rgba(255,180,77,0.32);
+    border-radius: 16px;
+    padding: 2.1rem 1.9rem;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    text-align: left;
+    box-shadow: 0 14px 40px rgba(0, 0, 0, 0.55);
   }
 
-  .redirect-box p {
-    font-size: 0.95rem;
-    line-height: 1.6;
+  .section-title {
+    font-family: 'Didot', 'Bodoni MT', 'Playfair Display', Georgia, serif;
+    font-size: 1.35rem;
+    color: var(--amber);
+    margin-bottom: 0.65rem;
+    letter-spacing: 0.01em;
+  }
+
+  .story-text {
+    font-size: 0.97rem;
+    line-height: 1.65;
     color: var(--paper);
+    margin-bottom: 1.35rem;
   }
 
-  .redirect-box p + p {
-    margin-top: 0.6rem;
+  .perks-list {
+    list-style: none;
+    margin-bottom: 1.6rem;
+    padding: 1rem 1.15rem;
+    background: rgba(255, 255, 255, 0.04);
+    border-radius: 10px;
+    border: 1px solid rgba(255,180,77,0.18);
+  }
+
+  .perks-list li {
+    font-size: 0.93rem;
     color: var(--paper-dim);
-    font-size: 0.88rem;
+    line-height: 1.55;
+    padding: 0.32rem 0;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.65rem;
   }
 
-  .countdown {
+  .perks-list li span.icon {
+    font-size: 1rem;
+    line-height: 1.4;
+    flex-shrink: 0;
+  }
+
+  .form-divider {
+    height: 1px;
+    background: rgba(255,180,77,0.22);
+    margin: 1.4rem 0;
+  }
+
+  .form-group {
+    margin-bottom: 1.1rem;
+  }
+
+  .form-group label {
+    display: block;
+    font-size: 0.88rem;
+    font-weight: 500;
+    color: var(--paper);
+    margin-bottom: 0.4rem;
+  }
+
+  .form-control {
+    width: 100%;
+    padding: 0.78rem 0.95rem;
+    border-radius: 8px;
+    border: 1px solid rgba(255,180,77,0.3);
+    background: rgba(20, 18, 31, 0.85);
+    color: var(--paper);
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 0.94rem;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+
+  .form-control::placeholder {
+    color: rgba(207, 195, 179, 0.45);
+  }
+
+  .form-control:focus {
+    outline: none;
+    border-color: var(--amber);
+    box-shadow: 0 0 0 3px rgba(255,180,77,0.15);
+  }
+
+  .submit-btn {
+    width: 100%;
+    margin-top: 0.8rem;
+    padding: 0.9rem 1.2rem;
+    border: none;
+    border-radius: 8px;
+    background: linear-gradient(135deg, var(--horizon) 0%, var(--amber) 100%);
+    color: var(--night);
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    cursor: pointer;
+    box-shadow: 0 6px 20px rgba(255,106,69,0.38);
+    transition: filter 0.2s, transform 0.15s;
+  }
+
+  .submit-btn:hover:not(:disabled) {
+    filter: brightness(1.08);
+    transform: translateY(-1px);
+  }
+
+  .submit-btn:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+  }
+
+  .success-state {
+    display: none;
+    text-align: center;
+    padding: 1.6rem 0.5rem;
+  }
+
+  .success-state .check-icon {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 30px;
-    height: 30px;
+    width: 54px;
+    height: 54px;
     border-radius: 50%;
+    background: rgba(255,180,77,0.15);
     border: 1px solid var(--amber);
     color: var(--amber);
-    font-weight: 600;
-    font-size: 0.9rem;
-    margin: 0 0.3rem;
-    vertical-align: middle;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
   }
 
-  .fallback {
-    margin-top: 1.1rem;
-    font-family: 'Helvetica Neue', Arial, sans-serif;
+  .success-state h3 {
+    font-family: 'Didot', 'Bodoni MT', Georgia, serif;
+    font-size: 1.6rem;
+    color: var(--paper);
+    margin-bottom: 0.6rem;
+  }
+
+  .success-state p {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: var(--paper-dim);
+  }
+
+  .error-msg {
+    display: none;
+    margin-top: 0.75rem;
+    padding: 0.65rem;
+    border-radius: 6px;
+    background: rgba(231, 76, 60, 0.2);
+    border: 1px solid rgba(231, 76, 60, 0.4);
+    color: #f5b7b1;
     font-size: 0.85rem;
-  }
-
-  .fallback a {
-    color: var(--amber);
-    text-decoration: none;
-    border-bottom: 1px solid rgba(255,180,77,0.4);
-  }
-
-  .fallback a:hover {
-    border-bottom-color: var(--amber);
+    text-align: center;
   }
 
   @media (prefers-reduced-motion: reduce) {
     .sun { animation: none; opacity: 0.85; transform: translateX(-50%); }
   }
+
+  @media (max-width: 480px) {
+    .support-box { padding: 1.6rem 1.3rem; }
+    .lang-bar { top: 10px; right: 10px; padding: 0.35rem 0.65rem; }
+  }
 </style>
 </head>
 <body>
+
+  <!-- Language Switcher (Auto-detects visitor country/browser language + allows manual selection) -->
+  <div class="lang-bar notranslate">
+    <label for="lang-select">🌐</label>
+    <select id="lang-select" class="lang-select" aria-label="Select Language">
+      <option value="en">English</option>
+      <option value="ar">العربية (Arabic)</option>
+      <option value="fr">Français (French)</option>
+      <option value="es">Español (Spanish)</option>
+      <option value="pt">Português (Portuguese)</option>
+      <option value="de">Deutsch (German)</option>
+      <option value="tr">Türkçe (Turkish)</option>
+      <option value="ru">Русский (Russian)</option>
+      <option value="zh">中文 (Chinese)</option>
+      <option value="hi">हिन्दी (Hindi)</option>
+      <option value="sw">Kiswahili (Swahili)</option>
+      <option value="more">🌍 More Languages...</option>
+    </select>
+    <div id="google_translate_element"></div>
+  </div>
 
   <div class="sky"></div>
   <div class="sun"></div>
   <div class="horizon-line"></div>
 
   <main>
-    <h1 class="band-name">SUNRISE AVENUE</h1>
-    <p class="tagline">stories from the road, before the lights go up</p>
+    <div class="relief-badge" data-i18n="badge">🕊️ Humanitarian Relief Initiative</div>
+    <h1 class="brand-name">SUNRISE SUPPORT</h1>
+    <p class="tagline" data-i18n="tagline">Bringing warmth, hope, and relief to children in war-torn countries.</p>
 
     <div class="divider"></div>
 
-    <div class="redirect-box">
-      <p>Taking you to WhatsApp in <span class="countdown" id="count">5</span> seconds.</p>
-      <p>You're joining the Sunrise avenue WhatsApp community, where the band shares personal stories </p>
-    </div>
+    <div class="support-box">
+      <div id="form-wrapper">
+        <div class="section-title" data-i18n="sectionTitle">Every Child Deserves a Safe Tomorrow</div>
+        <p class="story-text" data-i18n="storyText">
+          Millions of innocent children are living through the hardship of war. We are dedicating this platform to standing beside them—and we invite compassionate people around the world to join us.
+        </p>
 
-    <p class="fallback">
-      Not redirecting? <a href="https://wa.me/447876865287?text=I%20am%20sunrise%20super%20fan">Tap here to open WhatsApp</a>
-    </p>
+        <ul class="perks-list">
+          <li>
+            <span class="icon">🧒🏽</span>
+            <span data-i18n="perk1">Support real relief efforts bringing care and hope to children in conflict zones</span>
+          </li>
+          <li>
+            <span class="icon">💛</span>
+            <span data-i18n="perk2">Receive direct updates and stories on how our community is making an impact</span>
+          </li>
+          <li>
+            <span class="icon">🤝</span>
+            <span data-i18n="perk3">Connect and communicate directly with key leaders and important figures at the end of the campaign</span>
+          </li>
+        </ul>
+
+        <div class="form-divider"></div>
+
+        <form id="support-form">
+          <input type="hidden" name="_subject" value="New Sunrise Support Sign-Up">
+          <input type="hidden" name="_template" value="table">
+          <input type="hidden" name="_captcha" value="false">
+          <input type="text" name="_honey" style="display:none">
+
+          <div class="form-group">
+            <label for="name" data-i18n="labelName">Your Name</label>
+            <input class="form-control" type="text" id="name" name="Name" placeholder="Enter your full name" data-i18n-placeholder="phName" required>
+          </div>
+
+          <div class="form-group">
+            <label for="email" data-i18n="labelEmail">Email Address</label>
+            <input class="form-control" type="email" id="email" name="Email" placeholder="you@example.com" data-i18n-placeholder="phEmail" required>
+          </div>
+
+          <div class="form-group">
+            <label for="whatsapp" data-i18n="labelWhatsapp">WhatsApp or Phone Number</label>
+            <input class="form-control" type="text" id="whatsapp" name="WhatsApp_Contact" placeholder="+1 234 567 8900" required>
+          </div>
+
+          <button type="submit" class="submit-btn" id="submit-btn" data-i18n="btnSubmit">Count Me In — I Want to Help</button>
+          <div class="error-msg" id="error-msg" data-i18n="errorMsg">Something went wrong. Please try submitting again.</div>
+        </form>
+      </div>
+
+      <div class="success-state" id="success-state">
+        <div class="check-icon">💛</div>
+        <h3 data-i18n="successTitle">Thank You for Standing With the Children</h3>
+        <p data-i18n="successText">Your contact details have been received. We will reach out to you directly on your email or WhatsApp with updates and connect you with key figures as our mission moves forward.</p>
+      </div>
+    </div>
   </main>
 
   <script>
-    var seconds = 5;
-    var el = document.getElementById('count');
-    var timer = setInterval(function () {
-      seconds -= 1;
-      if (seconds <= 0) {
-        clearInterval(timer);
-        el.textContent = '0';
-        window.location.href = "https://wa.me/447876865287?text=I%20am%20sunrise%20super%20fan";
-        return;
+    (function () {
+      // Built-in instant translations for major global languages (fast, zero-flicker, accurate)
+      var translations = {
+        en: {
+          dir: "ltr",
+          badge: "🕊️ Humanitarian Relief Initiative",
+          tagline: "Bringing warmth, hope, and relief to children in war-torn countries.",
+          sectionTitle: "Every Child Deserves a Safe Tomorrow",
+          storyText: "Millions of innocent children are living through the hardship of war. We are dedicating this platform to standing beside them—and we invite compassionate people around the world to join us.",
+          perk1: "Support real relief efforts bringing care and hope to children in conflict zones",
+          perk2: "Receive direct updates and stories on how our community is making an impact",
+          perk3: "Connect and communicate directly with key leaders and important figures at the end of the campaign",
+          labelName: "Your Name",
+          phName: "Enter your full name",
+          labelEmail: "Email Address",
+          phEmail: "you@example.com",
+          labelWhatsapp: "WhatsApp or Phone Number",
+          btnSubmit: "Count Me In — I Want to Help",
+          btnSending: "Sending...",
+          errorMsg: "Something went wrong. Please try submitting again.",
+          successTitle: "Thank You for Standing With the Children",
+          successText: "Your contact details have been received. We will reach out to you directly on your email or WhatsApp with updates and connect you with key figures as our mission moves forward."
+        },
+        ar: {
+          dir: "rtl",
+          badge: "🕊️ مبادرة إغاثة إنسانية",
+          tagline: "نحمل الدفء والأمل والإغاثة للأطفال في البلدان التي مزقتها الحروب.",
+          sectionTitle: "كل طفل يستحق غداً آمناً",
+          storyText: "يعيش ملايين الأطفال الأبرياء ويلات الحرب. نكرّس هذه المنصة للوقوف إلى جانبهم، وندعو أصحاب القلوب الرحيمة حول العالم للانضمام إلينا.",
+          perk1: "دعم جهود الإغاثة الحقيقية التي توفر الرعاية والأمل للأطفال في مناطق النزاع",
+          perk2: "تلقي تحديثات وقصص مباشرة حول الأثر الذي يصنعه مجتمعنا",
+          perk3: "التواصل المباشر مع القادة والشخصيات المهمة في ختام الحملة",
+          labelName: "الاسم الكامل",
+          phName: "أدخل اسمك الكامل",
+          labelEmail: "البريد الإلكتروني",
+          phEmail: "you@example.com",
+          labelWhatsapp: "رقم الواتساب أو الهاتف",
+          btnSubmit: "سجّلني — أريد المساعدة",
+          btnSending: "جارٍ الإرسال...",
+          errorMsg: "حدث خطأ ما. يرجى المحاولة مرة أخرى.",
+          successTitle: "شكراً لوقوفك مع الأطفال",
+          successText: "تم استلام بياناتك بنجاح. سنتواصل معك مباشرة عبر البريد الإلكتروني أو الواتساب لإطلاعك على المستجدات وربطك بالشخصيات الرئيسية."
+        },
+        fr: {
+          dir: "ltr",
+          badge: "🕊️ Initiative d'Aide Humanitaire",
+          tagline: "Apporter chaleur, espoir et secours aux enfants des pays déchirés par la guerre.",
+          sectionTitle: "Chaque enfant mérite un avenir sûr",
+          storyText: "Des millions d'enfants innocents subissent les épreuves de la guerre. Nous dédions cette plateforme à leur soutien et invitons les personnes bienveillantes du monde entier à nous rejoindre.",
+          perk1: "Soutenir de véritables actions de secours apportant soins et espoir aux enfants en zone de conflit",
+          perk2: "Recevoir des nouvelles directes sur l'impact de notre communauté",
+          perk3: "Échanger directement avec des responsables et personnalités clés à l'issue de la campagne",
+          labelName: "Votre nom",
+          phName: "Entrez votre nom complet",
+          labelEmail: "Adresse e-mail",
+          phEmail: "vous@exemple.com",
+          labelWhatsapp: "Numéro WhatsApp ou téléphone",
+          btnSubmit: "Je participe — Je veux aider",
+          btnSending: "Envoi en cours...",
+          errorMsg: "Une erreur s'est produite. Veuillez réessayer.",
+          successTitle: "Merci de soutenir les enfants",
+          successText: "Vos coordonnées ont bien été reçues. Nous vous contacterons directement par e-mail ou WhatsApp pour vous tenir informé et vous mettre en relation avec les responsables."
+        },
+        es: {
+          dir: "ltr",
+          badge: "🕊️ Iniciativa de Ayuda Humanitaria",
+          tagline: "Llevando calidez, esperanza y alivio a los niños en países afectados por la guerra.",
+          sectionTitle: "Cada niño merece un mañana seguro",
+          storyText: "Millones de niños inocentes sufren las consecuencias de la guerra. Dedicamos esta plataforma a apoyarlos e invitamos a personas solidarias de todo el mundo a unirse.",
+          perk1: "Apoyar esfuerzos reales de ayuda que brindan cuidado y esperanza en zonas de conflicto",
+          perk2: "Recibir actualizaciones e historias directas sobre el impacto de nuestra comunidad",
+          perk3: "Comunicarte directamente con líderes y figuras clave al finalizar la campaña",
+          labelName: "Tu nombre",
+          phName: "Ingresa tu nombre completo",
+          labelEmail: "Correo electrónico",
+          phEmail: "tu@ejemplo.com",
+          labelWhatsapp: "WhatsApp o número de teléfono",
+          btnSubmit: "Cuenten conmigo — Quiero ayudar",
+          btnSending: "Enviando...",
+          errorMsg: "Algo salió mal. Por favor, inténtalo de nuevo.",
+          successTitle: "Gracias por apoyar a los niños",
+          successText: "Hemos recibido tus datos. Nos pondremos en contacto contigo por correo o WhatsApp con novedades y para conectarte con figuras clave."
+        },
+        pt: {
+          dir: "ltr",
+          badge: "🕊️ Iniciativa de Ajuda Humanitária",
+          tagline: "Levando acolhimento, esperança e socorro às crianças em países em guerra.",
+          sectionTitle: "Toda criança merece um amanhã seguro",
+          storyText: "Milhões de crianças inocentes vivem as dificuldades da guerra. Dedicamos esta plataforma a ficar ao lado delas e convidamos pessoas solidárias de todo o mundo a se juntarem a nós.",
+          perk1: "Apoiar ações reais de socorro que levam cuidado e esperança às crianças em zonas de conflito",
+          perk2: "Receber atualizações e histórias diretas sobre o impacto da nossa comunidade",
+          perk3: "Conectar-se e conversar diretamente com líderes e pessoas importantes ao final da campanha",
+          labelName: "Seu nome",
+          phName: "Digite seu nome completo",
+          labelEmail: "Endereço de e-mail",
+          phEmail: "voce@exemplo.com",
+          labelWhatsapp: "WhatsApp ou telefone",
+          btnSubmit: "Conte comigo — Quero ajudar",
+          btnSending: "Enviando...",
+          errorMsg: "Algo deu errado. Por favor, tente novamente.",
+          successTitle: "Obrigado por apoiar as crianças",
+          successText: "Seus dados foram recebidos. Entraremos em contato pelo seu e-mail ou WhatsApp com novidades e conectaremos você às lideranças."
+        },
+        de: {
+          dir: "ltr",
+          badge: "🕊️ Humanitäre Hilfsinitiative",
+          tagline: "Wärme, Hoffnung und Hilfe für Kinder in kriegsgebeutelten Ländern.",
+          sectionTitle: "Jedes Kind verdient eine sichere Zukunft",
+          storyText: "Millionen unschuldige Kinder leiden unter den Folgen des Krieges. Wir widmen diese Plattform ihrer Unterstützung und laden mitfühlende Menschen weltweit ein, sich uns anzuschließen.",
+          perk1: "Echte Hilfsmaßnahmen unterstützen, die Kindern in Konfliktgebieten Fürsorge und Hoffnung geben",
+          perk2: "Direkte Updates und Geschichten darüber erhalten, wie unsere Gemeinschaft hilft",
+          perk3: "Am Ende der Kampagne direkt mit wichtigen Persönlichkeiten und Organisatoren in Kontakt treten",
+          labelName: "Ihr Name",
+          phName: "Vollständigen Namen eingeben",
+          labelEmail: "E-Mail-Adresse",
+          phEmail: "sie@beispiel.de",
+          labelWhatsapp: "WhatsApp oder Telefonnummer",
+          btnSubmit: "Ich bin dabei — Ich möchte helfen",
+          btnSending: "Wird gesendet...",
+          errorMsg: "Etwas ist schiefgelaufen. Bitte versuchen Sie es erneut.",
+          successTitle: "Danke, dass Sie an der Seite der Kinder stehen",
+          successText: "Ihre Kontaktdaten sind eingegangen. Wir melden uns direkt per E-Mail oder WhatsApp bei Ihnen."
+        },
+        tr: {
+          dir: "ltr",
+          badge: "🕊️ İnsani Yardım Girişimi",
+          tagline: "Savaşın yıkıma uğrattığı ülkelerdeki çocuklara sıcaklık, umut ve yardım ulaştırıyoruz.",
+          sectionTitle: "Her Çocuk Güvenli Bir Yarını Hak Eder",
+          storyText: "Milyonlarca masum çocuk savaşın zorluklarını yaşıyor. Bu platformu onların yanında olmaya adıyoruz ve dünyanın dört bir yanındaki duyarlı insanları bize katılmaya davet ediyoruz.",
+          perk1: "Çatışma bölgelerindeki çocuklara bakım ve umut götüren gerçek yardım çalışmalarını destekleyin",
+          perk2: "Topluluğumuzun yarattığı etkiye dair doğrudan güncellemeler ve hikâyeler alın",
+          perk3: "Kampanya sonunda önemli isimler ve liderlerle doğrudan iletişim kurun",
+          labelName: "Adınız Soyadınız",
+          phName: "Adınızı ve soyadınızı girin",
+          labelEmail: "E-posta Adresi",
+          phEmail: "ornek@eposta.com",
+          labelWhatsapp: "WhatsApp veya Telefon Numarası",
+          btnSubmit: "Ben de Varım — Yardım Etmek İstiyorum",
+          btnSending: "Gönderiliyor...",
+          errorMsg: "Bir hata oluştu. Lütfen tekrar deneyin.",
+          successTitle: "Çocukların Yanında Olduğunuz İçin Teşekkürler",
+          successText: "İletişim bilgileriniz alındı. Güncellemeler için e-posta veya WhatsApp üzerinden size doğrudan ulaşacağız."
+        },
+        ru: {
+          dir: "ltr",
+          badge: "🕊️ Гуманитарная инициатива",
+          tagline: "Несём тепло, надежду и помощь детям в странах, охваченных войной.",
+          sectionTitle: "Каждый ребёнок заслуживает безопасного завтра",
+          storyText: "Миллионы невинных детей переживают тяготы войны. Мы посвящаем эту платформу поддержке этих детей и приглашаем неравнодушных людей со всего мира присоединиться к нам.",
+          perk1: "Поддержка реальной помощи, несущей заботу и надежду детям в зонах конфликтов",
+          perk2: "Прямые новости и истории о том, как наше сообщество меняет жизни к лучшему",
+          perk3: "Возможность напрямую пообщаться с ключевыми организаторами и важными людьми по итогам кампании",
+          labelName: "Ваше имя",
+          phName: "Введите ваше полное имя",
+          labelEmail: "Электронная почта",
+          phEmail: "you@example.com",
+          labelWhatsapp: "WhatsApp или номер телефона",
+          btnSubmit: "Я с вами — Хочу помочь",
+          btnSending: "Отправка...",
+          errorMsg: "Что-то пошло не так. Пожалуйста, попробуйте ещё раз.",
+          successTitle: "Спасибо, что поддерживаете детей",
+          successText: "Ваши контактные данные получены. Мы свяжемся с вами напрямую по электронной почте или в WhatsApp."
+        },
+        zh: {
+          dir: "ltr",
+          badge: "🕊️ 人道主义救援倡议",
+          tagline: "为战乱国家中的儿童带去温暖、希望与援助。",
+          sectionTitle: "每个孩子都值得拥有安全的明天",
+          storyText: "数百万无辜儿童正在经历战争的苦难。我们致力于通过这一平台陪伴在他们身边，并诚邀世界各地富有同情心的人们加入我们。",
+          perk1: "支持切实的救援行动，为冲突地区的儿童带去关怀与希望",
+          perk2: "获取关于我们社区如何产生积极影响的一手动态与故事",
+          perk3: "在活动结束时与核心组织者及重要人士直接沟通交流",
+          labelName: "您的姓名",
+          phName: "请输入您的全名",
+          labelEmail: "电子邮箱",
+          phEmail: "you@example.com",
+          labelWhatsapp: "WhatsApp 或联系电话",
+          btnSubmit: "算我一个 — 我想提供帮助",
+          btnSending: "正在提交...",
+          errorMsg: "提交出现问题，请重试。",
+          successTitle: "感谢您与孩子们站在一起",
+          successText: "我们已收到您的联系信息，将通过电子邮件或 WhatsApp 直接与您联系并同步最新进展。"
+        },
+        hi: {
+          dir: "ltr",
+          badge: "🕊️ मानवीय राहत पहल",
+          tagline: "युद्धग्रस्त देशों के बच्चों तक स्नेह, आशा और सहायता पहुँचाना।",
+          sectionTitle: "हर बच्चा एक सुरक्षित कल का हकदार है",
+          storyText: "लाखों मासूम बच्चे युद्ध की कठिनाइयों का सामना कर रहे हैं। हम इस मंच को उनके साथ खड़े होने के लिए समर्पित कर रहे हैं—और दुनिया भर के संवेदनशील लोगों को हमारे साथ जुड़ने के लिए आमंत्रित करते हैं।",
+          perk1: "संघर्ष क्षेत्रों में बच्चों को देखभाल और आशा देने वाले वास्तविक राहत प्रयासों का समर्थन करें",
+          perk2: "हमारा समुदाय कैसे बदलाव ला रहा है, इस पर सीधे अपडेट और कहानियाँ प्राप्त करें",
+          perk3: "अभियान के अंत में प्रमुख आयोजकों और महत्वपूर्ण व्यक्तियों से सीधे जुड़ें और संवाद करें",
+          labelName: "आपका नाम",
+          phName: "अपना पूरा नाम दर्ज करें",
+          labelEmail: "ईमेल पता",
+          phEmail: "you@example.com",
+          labelWhatsapp: "व्हाट्सएप या फ़ोन नंबर",
+          btnSubmit: "मुझे जोड़ें — मैं मदद करना चाहता हूँ",
+          btnSending: "भेजा जा रहा है...",
+          errorMsg: "कुछ गलत हो गया। कृपया पुनः प्रयास करें।",
+          successTitle: "बच्चों के साथ खड़े होने के लिए धन्यवाद",
+          successText: "आपका संपर्क विवरण प्राप्त हो गया है। हम अपडेट के लिए आपके ईमेल या व्हाट्सएप पर सीधे संपर्क करेंगे।"
+        },
+        sw: {
+          dir: "ltr",
+          badge: "🕊️ Mpango wa Msaada wa Kibinadamu",
+          tagline: "Kuleta upendo, matumaini, na msaada kwa watoto katika nchi zenye vita.",
+          sectionTitle: "Kila Mtoto Anastahili Kesho Salama",
+          storyText: "Mamilioni ya watoto wasio na hatia wanaishi katika mateso ya vita. Tunatoa jukwaa hili kusimama nao—na tunawaalika watu wenye huruma duniani kote kuungana nasi.",
+          perk1: "Saidia juhudi halisi za uokoaji zinazoleta matumaini kwa watoto walio katika maeneo ya vita",
+          perk2: "Pokea taarifa za moja kwa moja kuhusu jinsi jamii yetu inavyoleta mabadiliko",
+          perk3: "Wasiliana moja kwa moja na viongozi wakuu na watu muhimu mwishoni mwa kampeni",
+          labelName: "Jina Lako",
+          phName: "Weka jina lako kamili",
+          labelEmail: "Barua Pepe",
+          phEmail: "wewe@mfano.com",
+          labelWhatsapp: "Namba ya WhatsApp au Simu",
+          btnSubmit: "Nihesabu — Nataka Kusaidia",
+          btnSending: "Inatuma...",
+          errorMsg: "Hitilafu imetokea. Tafadhali jaribu tena.",
+          successTitle: "Asante kwa Kusimama na Watoto",
+          successText: "Taarifa zako zimepokelewa. Tutawasiliana nawe moja kwa moja kupitia barua pepe au WhatsApp."
+        }
+      };
+
+      var currentLang = "en";
+      var langSelect = document.getElementById("lang-select");
+      var gtContainer = document.getElementById("google_translate_element");
+      var box = document.querySelector(".support-box");
+
+      function applyLanguage(langCode) {
+        var dict = translations[langCode] || translations.en;
+        currentLang = translations[langCode] ? langCode : "en";
+
+        // Set RTL for Arabic, LTR for others
+        document.documentElement.lang = currentLang;
+        box.style.direction = dict.dir;
+        box.style.textAlign = dict.dir === "rtl" ? "right" : "left";
+
+        // Update all text elements
+        document.querySelectorAll("[data-i18n]").forEach(function (el) {
+          var key = el.getAttribute("data-i18n");
+          if (dict[key]) {
+            el.textContent = dict[key];
+          }
+        });
+
+        // Update input placeholders
+        document.querySelectorAll("[data-i18n-placeholder]").forEach(function (el) {
+          var key = el.getAttribute("data-i18n-placeholder");
+          if (dict[key]) {
+            el.setAttribute("placeholder", dict[key]);
+          }
+        });
       }
-      el.textContent = seconds;
-    }, 1000);
+
+      // Auto-detect visitor's browser/device language on load
+      var browserLang = (navigator.language || navigator.userLanguage || "en").toLowerCase().split("-")[0];
+      if (translations[browserLang]) {
+        langSelect.value = browserLang;
+        applyLanguage(browserLang);
+      } else if (browserLang !== "en") {
+        // If visitor is from a country whose language isn't in the top 11 list, reveal Google Translate automatically
+        langSelect.value = "more";
+        gtContainer.classList.add("visible");
+      }
+
+      // Manual dropdown selection
+      langSelect.addEventListener("change", function () {
+        var val = this.value;
+        if (val === "more") {
+          gtContainer.classList.add("visible");
+          applyLanguage("en");
+        } else {
+          gtContainer.classList.remove("visible");
+          applyLanguage(val);
+        }
+      });
+
+      // Background AJAX form submission (keeps user on your page)
+      var form = document.getElementById("support-form");
+      var submitBtn = document.getElementById("submit-btn");
+      var formWrapper = document.getElementById("form-wrapper");
+      var successState = document.getElementById("success-state");
+      var errorMsg = document.getElementById("error-msg");
+
+      if (form) {
+        form.addEventListener("submit", function (e) {
+          e.preventDefault();
+          var dict = translations[currentLang] || translations.en;
+          errorMsg.style.display = "none";
+          submitBtn.disabled = true;
+          submitBtn.textContent = dict.btnSending;
+
+          var formData = new FormData(form);
+          formData.append("Visitor_Language", currentLang);
+
+          fetch("https://formsubmit.co/ajax/a53ca8d084c60e92fdba48f2246cbd88", {
+            method: "POST",
+            headers: { "Accept": "application/json" },
+            body: formData
+          })
+          .then(function (response) {
+            if (!response.ok) throw new Error("Network error");
+            return response.json();
+          })
+          .then(function () {
+            formWrapper.style.display = "none";
+            successState.style.display = "block";
+          })
+          .catch(function () {
+            submitBtn.disabled = false;
+            submitBtn.textContent = dict.btnSubmit;
+            errorMsg.style.display = "block";
+          });
+        });
+      }
+    })();
   </script>
-<script data-goatcounter="https://checkmessage.goatcounter.com/count"
+
+  <!-- Google Translate Element for 130+ additional languages -->
+  <script>
+    function googleTranslateElementInit() {
+      new google.translate.TranslateElement({
+        pageLanguage: 'en',
+        autoDisplay: false
+      }, 'google_translate_element');
+    }
+  </script>
+  <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+  <script data-goatcounter="https://checkmessage.goatcounter.com/count"
         async src="//gc.zgo.at/count.js"></script>
 </body>
 </html>
